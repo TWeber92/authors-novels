@@ -7,8 +7,6 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,8 +32,12 @@ import com.infy.service.AuthorService;
 @CrossOrigin
 public class NovelAPI {
 	
-	@Autowired
-	Environment environment;
+	final Environment environment;
+
+	NovelAPI(Environment environment, AuthorService authorService) {
+		this.environment = environment;
+		this.authorService = authorService;
+	}
 	
 	@GetMapping("hi/{name}")
 	String sayHi( @PathVariable 
@@ -50,11 +52,6 @@ public class NovelAPI {
 	AuthorDTO add(@RequestBody @Valid AuthorDTO authorDTO) {
 		return authorDTO;
 	}
-	
-	
-	
-	
-	
 	
 	@DeleteMapping("/book/{bookId}")
 	/// this method runs for requested URL like:  /novels/book/23?bookType=shortStory
@@ -75,10 +72,6 @@ public class NovelAPI {
 		
 	}
 	
-	
-	
-	
-	
 	@GetMapping("novelDTO")
 	/// this method works for http://localhost:5555/novels/novelDTO
 	NovelDTO sendNovel() {
@@ -93,31 +86,7 @@ public class NovelAPI {
 		// What format does @ResponseBody use to convert from object to String??
 		// Ans: JSON format => Javascript Object Notation
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@Autowired
-	AuthorService authorService;
+	final AuthorService authorService;
 	
 	@PostMapping("")
 	public ResponseEntity<NovelDTO> addNovel(@RequestBody @Valid NovelDTO novelDTO) throws Exception{

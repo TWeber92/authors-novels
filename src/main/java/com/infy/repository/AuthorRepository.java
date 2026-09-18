@@ -1,13 +1,13 @@
 package com.infy.repository;
 
-import java.util.List;
+// import java.util.List;
 
-import org.springframework.data.jpa.repository.Query;
+// import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
-import org.springframework.data.repository.query.Param;
+// import org.springframework.data.repository.query.Param;
 
 import com.infy.entity.Author;
-import com.infy.entity.Novel;
+// import com.infy.entity.Novel;
 
 // We want to go from AUTHOR to NOVELS => Author is source entity
 public interface AuthorRepository extends CrudRepository<Author, Integer> {
