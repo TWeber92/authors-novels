@@ -21,6 +21,7 @@ public class Novel {
 	
 	@Column(name = "AUTH_ID")
 	private Integer authId;
+	public Novel(){}
 
 	public Novel(Integer id, String title, Integer year, Integer authId){
 		this.id = id;

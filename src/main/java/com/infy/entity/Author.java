@@ -21,6 +21,7 @@ public class Author {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "AUTH_ID")
 	private List<Novel> novels;
+	public Author(){}
 
 	public Author(Integer id, String name) {
 		this.id = id;

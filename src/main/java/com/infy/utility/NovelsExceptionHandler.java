@@ -38,7 +38,14 @@ public class NovelsExceptionHandler {
 //		return new ResponseEntity<ErrorInfo>(error,HttpStatus.BAD_REQUEST);
 //	}
 	
-	
+//	@ExceptionHandler(Exception.class)
+//	public ResponseEntity<ErrorInfo> general(Exception e){
+//		e.printStackTrace();
+//		ErrorInfo err = new ErrorInfo();
+//		err.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+//		err.setErrorMessage("Something failed; Check Console of Eclipse");
+//		return new ResponseEntity<ErrorInfo>(err,HttpStatus.INTERNAL_SERVER_ERROR);
+//	}
 	
 	@ExceptionHandler // What all types of exceptions is this method gonna handle
 	public ResponseEntity<ErrorInfo> handleEx(Exception exception){
@@ -48,15 +55,6 @@ public class NovelsExceptionHandler {
 		errorInfo.setErrorMessage(exception.getMessage());
 		return new ResponseEntity<ErrorInfo>(errorInfo,HttpStatus.BAD_REQUEST);
 	}
-	
-//	@ExceptionHandler(Exception.class)
-//	public ResponseEntity<ErrorInfo> general(Exception e){
-//		e.printStackTrace();
-//		ErrorInfo err = new ErrorInfo();
-//		err.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
-//		err.setErrorMessage("Something failed; Check Console of Eclipse");
-//		return new ResponseEntity<ErrorInfo>(err,HttpStatus.INTERNAL_SERVER_ERROR);
-//	}
 	
 	@ExceptionHandler({MethodArgumentNotValidException.class,ConstraintViolationException.class})
 	// MethodArg...Exception => happens when REQUESTBODY validation fails

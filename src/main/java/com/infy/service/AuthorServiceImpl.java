@@ -26,26 +26,6 @@ public class AuthorServiceImpl implements AuthorService {
 	private final AuthorRepository authorRepository;
 	private final NovelRepository novelRepository;
 	
-	private Author putNovelsInAuthor(Author author, AuthorDTO authorDTO) {
-		if (authorDTO.getNovelDTOs()!=null) {
-			List<Novel> novels = authorDTO.getNovelDTOs().stream()
-					.map(Novel::from).collect(Collectors.toList());
-			author.setNovels(novels);
-		}
-		return author;
-	}
-
-	private AuthorDTO putNovelsInAuthorDTO(AuthorDTO authorDTO, Author author) {
-		List<Novel> novelList = author.getNovels();
-		if (novelList!=null) {
-			List<NovelDTO> novelDTOList = novelList.stream()
-					.map(NovelDTO::from)
-					.collect(Collectors.toList());
-			authorDTO.setNovelDTOs(novelDTOList);
-		}
-		return authorDTO;
-	}
-	
 	
 	@Override
 	public AuthorDTO addAuthor(AuthorDTO authorDTO) throws Exception {
@@ -94,7 +74,8 @@ public class AuthorServiceImpl implements AuthorService {
 	}
 	@Override
 	public AuthorDTO deleteAuthor(Integer authorId) throws Exception {
-		AuthorDTO authorDTO = putNovelsInAuthorDTO(AuthorDTO.from(authorRepository.findById(authorId).orElseThrow(()->new Exception("Bad Author Id"))), null);
+		Author author = authorRepository.findById(authorId).orElseThrow(()->new Exception("Bad Author Id"));
+		AuthorDTO authorDTO = putNovelsInAuthorDTO(AuthorDTO.from(author), author);
 		authorRepository.deleteById(authorId);
 		return authorDTO;
 	}
@@ -105,5 +86,25 @@ public class AuthorServiceImpl implements AuthorService {
 		author.setName(authorName);
 		return putNovelsInAuthorDTO(AuthorDTO.from(author), author);
 	}
+	private Author putNovelsInAuthor(Author author, AuthorDTO authorDTO) {
+		if (authorDTO.getNovelDTOs()!=null) {
+			List<Novel> novels = authorDTO.getNovelDTOs().stream()
+					.map(Novel::from).collect(Collectors.toList());
+			author.setNovels(novels);
+		}
+		return author;
+	}
+
+	private AuthorDTO putNovelsInAuthorDTO(AuthorDTO authorDTO, Author author) {
+		List<Novel> novelList = author.getNovels();
+		if (novelList!=null) {
+			List<NovelDTO> novelDTOList = novelList.stream()
+					.map(NovelDTO::from)
+					.collect(Collectors.toList());
+			authorDTO.setNovelDTOs(novelDTOList);
+		}
+		return authorDTO;
+	}
+	
 
 }
