@@ -1,6 +1,6 @@
 # Novels
 
-A Spring Boot REST API for managing authors and their novels, backed by MySQL.
+Using Spring Boot, Spring Data JPA, and MySQL, this project demonstrates one-to-many entity relationships with cascade behavior, layered architecture (controller, service, repository), and bean validation. 
 
 ## Tech Stack
 
@@ -44,18 +44,23 @@ The API will be available at http://localhost:8081.
 ## API Endpoints
 
 ### Authors
-Method	Path	Description
-GET	/novels/authors	List all authors with their novels
-POST	/novels/authors	Add a new author
-PUT	/novels/authors/{authorId}/{authorName}	Update an author's name
-DELETE	/novels/authors/{authorId}	Delete an author and their novels
-GET	/novels/authors/{authorName}	Get novels by author name
-GET	/novels/authors/{authorName}/{year}	Get novels by author name and year
-Novels
-Method	Path	Description
-POST	/novels	Add a novel
-PUT	/novels	Update a novel
-DELETE	/novels/{novelId}	Delete a novel
+
+| Method | Path | Description |
+|---|---|---|
+| GET | `/novels/authors` | List all authors with their novels |
+| POST | `/novels/authors` | Add a new author |
+| PUT | `/novels/authors/{authorId}/{authorName}` | Update an author's name |
+| DELETE | `/novels/authors/{authorId}` | Delete an author and their novels |
+| GET | `/novels/authors/{authorName}` | Get novels by author name |
+| GET | `/novels/authors/{authorName}/{year}` | Get novels by author name and year |
+
+### Novels
+
+| Method | Path | Description |
+|---|---|---|
+| POST | `/novels` | Add a novel |
+| PUT | `/novels` | Update a novel |
+| DELETE | `/novels/{novelId}` | Delete a novel |
 
 ### Example — get novels by author
 
