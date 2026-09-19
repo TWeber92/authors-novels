@@ -15,7 +15,4 @@ public interface AuthorService {
 	AuthorDTO deleteAuthor(Integer authorId) throws Exception;
 	AuthorDTO updateAuthor(Integer authorId,String authorName) throws Exception;
 	
-	NovelDTO addNovel(NovelDTO novelDTO) throws Exception;  /// adding a new novel without adding a new author 
-	NovelDTO updateNovel(NovelDTO novelDTO) throws Exception;                        /// edit a novel 
-	NovelDTO deleteNovel(Integer novelId) throws Exception;                       /// delete a novel 
 }

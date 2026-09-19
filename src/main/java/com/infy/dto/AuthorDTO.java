@@ -2,6 +2,8 @@ package com.infy.dto;
 
 import java.util.List;
 
+import com.infy.entity.Author;
+
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
@@ -18,12 +20,13 @@ public class AuthorDTO {
 	@Pattern(regexp = "[A-Za-z][A-Za-z ]*", message = "{Author.name.ONLYLETTERS}")
 	@Size(max = 50, min = 2)
 	private String name;
-	
-	
-	
-	
 	@Valid
 	private List<NovelDTO> novelDTOs;
+
+	public AuthorDTO(Integer id, String name){
+		this.id = id;
+		this.name = name;
+	}
 
 	public Integer getId() {
 		return id;
@@ -49,6 +52,9 @@ public class AuthorDTO {
 		this.novelDTOs = novelDTOs;
 	}
 
+	static public AuthorDTO from(Author entity){
+		return new AuthorDTO(entity.getId(), entity.getName());
+	}
 	/// Since the fields are private, the only way outside classes can find fields is through getter setters
 	
 	

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.infy.dto.AuthorDTO;
 import com.infy.dto.NovelDTO;
 import com.infy.service.AuthorService;
+import com.infy.service.NovelService;
 
 @RestController
 @RequestMapping("novels")
@@ -34,9 +35,10 @@ public class NovelAPI {
 	
 	final Environment environment;
 
-	NovelAPI(Environment environment, AuthorService authorService) {
+	NovelAPI(Environment environment, AuthorService authorService, NovelService novelService) {
 		this.environment = environment;
 		this.authorService = authorService;
+		this.novelService = novelService;
 	}
 	
 	@GetMapping("hi/{name}")
@@ -75,11 +77,7 @@ public class NovelAPI {
 	@GetMapping("novelDTO")
 	/// this method works for http://localhost:5555/novels/novelDTO
 	NovelDTO sendNovel() {
-		NovelDTO novelDTO = new NovelDTO();
-		novelDTO.setId(23);
-		novelDTO.setTitle("Great Expectations");
-		novelDTO.setYear(1955);
-		novelDTO.setAuthId(23);
+		NovelDTO novelDTO = new NovelDTO( 23,  "Great Expectations",  1955,  23);
 		return novelDTO;
 		// This method returns an OBJECT but ResponseBody can only carry STRINGs
 		// @ResponseBody converts the novelDTO object to a Stringified version and puts in the ResponseBody
@@ -87,10 +85,11 @@ public class NovelAPI {
 		// Ans: JSON format => Javascript Object Notation
 	}
 	final AuthorService authorService;
+	final NovelService novelService;
 	
 	@PostMapping("")
 	public ResponseEntity<NovelDTO> addNovel(@RequestBody @Valid NovelDTO novelDTO) throws Exception{
-		return new ResponseEntity<NovelDTO>(authorService.addNovel(novelDTO),HttpStatus.CREATED);
+		return new ResponseEntity<NovelDTO>(novelService.addNovel(novelDTO),HttpStatus.CREATED);
 	}
 		
 	@GetMapping("authors")
@@ -100,12 +99,12 @@ public class NovelAPI {
 	
 	@PutMapping("")
 	public ResponseEntity<NovelDTO> updateNovel(@Valid @RequestBody NovelDTO novelDTO) throws Exception{
-		return new ResponseEntity<NovelDTO>(authorService.updateNovel(novelDTO),HttpStatus.OK);
+		return new ResponseEntity<NovelDTO>(novelService.updateNovel(novelDTO),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("{novelId}")
 	public ResponseEntity<NovelDTO> deleteNovel(@PathVariable Integer novelId) throws Exception{
-		return new ResponseEntity<NovelDTO>(authorService.deleteNovel(novelId),HttpStatus.OK);
+		return new ResponseEntity<NovelDTO>(novelService.deleteNovel(novelId),HttpStatus.OK);
 	}
 	
 	@DeleteMapping("authors/{authorId}")

@@ -1,5 +1,7 @@
 package com.infy.entity;
 
+import com.infy.dto.NovelDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -19,6 +21,13 @@ public class Novel {
 	
 	@Column(name = "AUTH_ID")
 	private Integer authId;
+
+	public Novel(Integer id, String title, Integer year, Integer authId){
+		this.id = id;
+		this.title = title;
+		this.year = year;
+		this.authId = authId;
+	}
 
 	public Integer getId() {
 		return id;
@@ -45,7 +54,6 @@ public class Novel {
 	}
 
 	
-
 	public Integer getAuthId() {
 		return authId;
 	}
@@ -85,7 +93,9 @@ public class Novel {
 	}
 
 	
-	
+	static public Novel from(NovelDTO dto){
+		return new Novel(dto.getId(), dto.getTitle(), dto.getYear(), dto.getAuthId());
+	}
 	
 
 }

@@ -2,6 +2,8 @@ package com.infy.entity;
 
 import java.util.List;
 
+import com.infy.dto.AuthorDTO;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -19,6 +21,11 @@ public class Author {
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "AUTH_ID")
 	private List<Novel> novels;
+
+	public Author(Integer id, String name) {
+		this.id = id;
+		this.name = name;
+	}
 
 	public Integer getId() {
 		return id;
@@ -74,6 +81,8 @@ public class Author {
 		return "Author [id=" + id + ", name=" + name + ", novels=" + novels + "]";
 	}
 	
-	
+	static public Author from(AuthorDTO dto){
+		return new Author(dto.getId(), dto.getName());
+	}
 
 }

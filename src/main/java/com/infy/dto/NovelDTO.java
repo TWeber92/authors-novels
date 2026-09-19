@@ -1,5 +1,7 @@
 package com.infy.dto;
 
+import com.infy.entity.Novel;
+
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Pattern;
 
@@ -21,6 +23,13 @@ public class NovelDTO {
 	private Integer authId; // ADD ONLY IF YOU WANT TO GO FROM NOVEL TO AUTHOR ManyToOne
 	                            // in this project our aim is to go from Author to novel
 
+
+	public NovelDTO(Integer id, String title, Integer year, Integer authId){
+		this.id = id;
+		this.title = title;
+		this.year = year;
+		this.authId = authId;
+	}
 	public Integer getId() {
 		return id;
 	}
@@ -59,6 +68,8 @@ public class NovelDTO {
 	}
 
 	
-	
+	static public NovelDTO from(Novel entity){
+		return new NovelDTO(entity.getId(), entity.getTitle(), entity.getYear(),entity.getAuthId());
+	}
 	
 }
