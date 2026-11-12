@@ -9,19 +9,22 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 @Entity
-// @Table not needed since the table name is the same
+@Table(name = "authors")
 public class Author {
 	@Id
 	private Integer id;
-	
+
 	private String name;
-	
+
 	@OneToMany(cascade = CascadeType.ALL)
 	@JoinColumn(name = "AUTH_ID")
 	private List<Novel> novels;
-	public Author(){}
+
+	public Author() {
+	}
 
 	public Author(Integer id, String name) {
 		this.id = id;
@@ -81,8 +84,8 @@ public class Author {
 	public String toString() {
 		return "Author [id=" + id + ", name=" + name + ", novels=" + novels + "]";
 	}
-	
-	static public Author from(AuthorDTO dto){
+
+	static public Author from(AuthorDTO dto) {
 		return new Author(dto.getId(), dto.getName());
 	}
 

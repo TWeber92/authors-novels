@@ -7,23 +7,27 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "novels")
 public class Novel {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	
+
 	private String title;
-	
+
 	private Integer year;
-	
+
 	@Column(name = "AUTH_ID")
 	private Integer authId;
-	public Novel(){}
 
-	public Novel(Integer id, String title, Integer year, Integer authId){
+	public Novel() {
+	}
+
+	public Novel(Integer id, String title, Integer year, Integer authId) {
 		this.id = id;
 		this.title = title;
 		this.year = year;
@@ -54,7 +58,6 @@ public class Novel {
 		this.year = year;
 	}
 
-	
 	public Integer getAuthId() {
 		return authId;
 	}
@@ -93,10 +96,8 @@ public class Novel {
 		return "Novel [id=" + id + ", title=" + title + ", year=" + year + ", authId=" + authId + "]";
 	}
 
-	
-	static public Novel from(NovelDTO dto){
+	static public Novel from(NovelDTO dto) {
 		return new Novel(dto.getId(), dto.getTitle(), dto.getYear(), dto.getAuthId());
 	}
-	
 
 }
